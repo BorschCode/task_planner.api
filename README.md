@@ -19,6 +19,7 @@ and you create a new instance
 1. **Clone the Symfony Project Repository:**
    ```bash
    git clone https://github.com/ZhoraKornev/task_planner.api
+   cp .env.example .env
    cd task_planner.api
    ```
 
@@ -29,13 +30,13 @@ and you create a new instance
 3. **Build and Start Docker Containers:**
    In your terminal, run the following command to build and start the Docker containers:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 4. **Access PHP Bash in the Docker Container:**
    To enter the PHP container's bash, use the following command:
    ```bash
-   docker-compose exec php bash
+   docker compose exec php bash
    ```
 
 5. **Install Project Dependencies with Composer:**
