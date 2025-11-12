@@ -21,11 +21,13 @@ use Zenstruck\Foundry\RepositoryProxy;
  * @method static Task|Proxy<Task>                     randomOrCreate(array<string, mixed> $attributes = [])
  * @method static TaskRepository|RepositoryProxy<Task> repository()
  * @method static Task[]|Proxy<Task>[]                 all()
+ * // phpcs:disable
  * @method static Task[]|Proxy<Task>[]                 createMany(int $number, array<string, mixed>|callable $attributes = [])
  * @method static Task[]|Proxy<Task>[]                 createSequence(iterable<array<string, mixed>|callable>|callable $sequence)
  * @method static Task[]|Proxy<Task>[]                 findBy(array<string, mixed> $attributes)
  * @method static Task[]|Proxy<Task>[]                 randomRange(int $min, int $max, array<string, mixed> $attributes = [])
  * @method static Task[]|Proxy<Task>[]                 randomSet(int $number, array<string, mixed> $attributes = [])
+ * // phpcs:enable
  */
 final class TaskFactory extends ModelFactory
 {
@@ -52,7 +54,6 @@ final class TaskFactory extends ModelFactory
             'priority' => self::faker()->randomNumber(),
             'status' => self::faker()->text(100),
             'title' => self::faker()->text(255),
-//            'parent' => TaskFactory::random(),
         ];
     }
 
@@ -61,9 +62,7 @@ final class TaskFactory extends ModelFactory
      */
     protected function initialize(): self
     {
-        return $this
-            // ->afterInstantiate(function(Task $task): void {})
-            ;
+        return $this;
     }
 
     protected static function getClass(): string

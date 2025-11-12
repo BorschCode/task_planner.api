@@ -16,8 +16,10 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array<string, mixed> $criteria, array<string, string> $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array<string, mixed> $criteria, array<string, string> $orderBy = null, $limit = null, $offset = null)
+ * @method User[] findAll()
+ * phpcs:disable
+ * @method User[] findBy(array<string, mixed> $criteria, array<string, string> $orderBy = null, $limit = null, $offset = null)
+ * phpcs:enable
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
@@ -31,9 +33,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        // The redundant 'instanceof User' check was removed here, as the class-level
-        // PHPDoc (@implements PasswordUpgraderInterface<User>) guarantees the type.
-
         /** @var User $user */
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
@@ -44,7 +43,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $now = new DateTimeImmutable();
         return $this->createQueryBuilder('u')
-            ->leftJoin('u.apiTokens', 'at') // Replace 'accessTokens' with the actual property name representing the association
+            // Replace 'accessTokens' with the actual property name representing the association
+            ->leftJoin('u.apiTokens', 'at')
             ->where('at.token = :accessToken')
             ->andWhere('at.expiresAt > :date')
             ->setParameter('accessToken', $accessToken)

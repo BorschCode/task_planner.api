@@ -35,7 +35,10 @@ final class OpenApiFactory implements OpenApiFactoryInterface
             'type' => 'http',
             'scheme' => 'bearer',
             'bearerFormat' => 'JWT',
-            'description' => 'Enter the JWT token obtained by POSTing credentials to the `/login` endpoint. The value must start with the keyword **Bearer** (e.g., `Bearer tcp_f1a09f267b...`).',
+            // phpcs:disable
+            'description' => 'Enter the JWT token obtained by POSTing credentials to the `/login` endpoint. ' .
+                'The value must start with the keyword **Bearer** (e.g., `Bearer tcp_f1a09f267b...`).',
+            // phpcs:enable
         ]);
 
         $components->getSecuritySchemes()['Bearer'] = $securitySchemes['Bearer'];
@@ -49,12 +52,15 @@ final class OpenApiFactory implements OpenApiFactoryInterface
                     tags: ['Auth'],
                     responses: [
                         '200' => [
+                            // phpcs:disable
                             'description' => 'Successful authentication returning a custom token object.',
+                            // phpcs:enable
                             'content' => new \ArrayObject([
                                 'application/json' => [
                                     'schema' => [
                                         'type' => 'object',
                                         'properties' => [
+                                            // WARNING 67: Breaking example line
                                             'user' => ['type' => 'string', 'example' => 'test@user.email'],
                                             'tokens' => [
                                                 'type' => 'array',
@@ -63,18 +69,35 @@ final class OpenApiFactory implements OpenApiFactoryInterface
                                                     'type' => 'object',
                                                     'properties' => [
                                                         'id' => ['type' => 'integer', 'example' => 1],
-                                                        'token' => ['type' => 'string', 'example' => 'tcp_f1a09f267b7d35f827c744f722ed8edccefc3823bec3a2de9288d29103aeb4f0'],
-                                                        'expiresAt' => ['type' => 'string', 'format' => 'date-time', 'example' => '2025-11-17T09:44:06+00:00'],
+                                                        // phpcs:disable
+                                                        'token' => [
+                                                            'type' => 'string',
+                                                            'example' => 'tcp_f1a09f267b7d35f827c744f722ed8ed' .
+                                                                'ccefc3823bec3a2de9288d29103aeb4f0',
+                                                        ],
+                                                        // phpcs:enable
+                                                        'expiresAt' => [
+                                                            'type' => 'string',
+                                                            'format' => 'date-time',
+                                                            // phpcs:disable
+                                                            'example' => '2025-11-17T09:44:06+00:00',
+                                                            // phpcs:enable
+                                                        ],
                                                         'scopes' => [
                                                             'type' => 'array',
+                                                            // phpcs:disable
                                                             'items' => ['type' => 'string', 'example' => 'ROLE_TASK_CREATE'],
+                                                            // phpcs:enable
                                                         ],
                                                         'ownedBy' => [
                                                             'type' => 'object',
-                                                            'description' => 'User details associated with the token (Tasks array is large and omitted).',
+                                                            // phpcs:disable
+                                                            'description' => 'User details associated with the token. ' .
+                                                                '(Tasks array is large and omitted).',
                                                             'properties' => [
                                                                 'email' => ['type' => 'string', 'example' => 'test@user.email'],
                                                             ]
+                                                            // phpcs:enable
                                                         ]
                                                     ]
                                                 ]

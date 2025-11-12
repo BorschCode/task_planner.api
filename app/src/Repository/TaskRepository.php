@@ -12,7 +12,9 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Task|null find($id, $lockMode = null, $lockVersion = null)
  * @method Task|null findOneBy(array<string, mixed> $criteria, array<string, string> $orderBy = null)
  * @method Task[]    findAll()
+ * phpcs:disable
  * @method Task[]    findBy(array<string, mixed> $criteria, array<string, string> $orderBy = null, $limit = null, $offset = null)
+ * phpcs:enable
  */
 class TaskRepository extends ServiceEntityRepository
 {
