@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Exception\NotReachedException;
 use App\Repository\ApiTokenRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,28 +15,24 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: "app_login", methods: Request::METHOD_POST)]
-    public function login(ApiTokenRepository $apiTokenRepository, #[CurrentUser] $user = null): JsonResponse
+    public function login(ApiTokenRepository $apiTokenRepository, #[CurrentUser] ?User $user = null): JsonResponse
     {
-        if (!$this->isGranted('PUBLIC_ACCESS')) {
+        if (null === $user) {
             return $this->json([
-                'error' => 'Invalid login request: check that the Content-Type header is "application/json".'
-            ], Response::HTTP_BAD_REQUEST);
+                'error' => 'Invalid credentials or failed authentication.'
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
         return $this->json([
             'user' => $user->getUserIdentifier(),
-            'tokens' => $this->getUser()->getApiTokens()
+            'tokens' => $user->getApiTokens()
         ], Response::HTTP_OK);
     }
 
 
-    /**
-     * @throws NotReachedException
-     */
     #[Route(path: '/logout', name: "app_logout")]
-    public function logout()
+    public function logout(): void
     {
-        // controller can be blank: it will never be executed!
         throw new NotReachedException();
     }
 }

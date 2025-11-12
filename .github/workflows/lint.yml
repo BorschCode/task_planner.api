@@ -1,6 +1,5 @@
 name: Lint (PHPStan + PHPCS)
 
-# Run on pushes and pull requests to main and feature branches
 on:
   push:
     branches: [ main ]
@@ -14,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: [ '8.1', '8.2' ]  # adjust versions you want to test
+        php-version: [ '8.1', '8.2' ]
 
     steps:
       - name: Checkout repository
@@ -23,7 +22,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup PHP ${{ matrix.php-version }}
-        uses: shivammathur/setup-php@v4
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, json, xml, pdo, tokenizer
@@ -32,31 +31,16 @@ jobs:
       - name: Validate composer.json
         run: composer validate --no-check-publish
 
-      - name: Get Composer Cache directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
       - name: Cache Composer dependencies
         uses: actions/cache@v4
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
+          path: ~/.composer/cache/files
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
 
-      - name: Install composer dependencies
+      - name: Install dependencies
         run: composer install --no-progress --no-suggest --prefer-dist --no-interaction
-
-      - name: Ensure make is installed (Ubuntu has make preinstalled)
-        run: make --version
 
       - name: Run lint (phpstan + phpcs)
         run: make lint
-        working-directory: app
-
-      - name: Upload PHPCS report (optional)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: phpcs-report
-          path: phpcs-report.xml
