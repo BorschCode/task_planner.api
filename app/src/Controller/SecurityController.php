@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
-use ApiPlatform\Api\IriConverterInterface;
 use App\Exception\NotReachedException;
 use App\Repository\ApiTokenRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class SecurityController extends AbstractController
 {
-    #[Route(path: '/login', name: "app_login", methods: "POST")]
-    public function login(ApiTokenRepository $apiTokenRepository, #[CurrentUser] $user = null)
+    #[Route(path: '/login', name: "app_login", methods: Request::METHOD_POST)]
+    public function login(ApiTokenRepository $apiTokenRepository, #[CurrentUser] $user = null): JsonResponse
     {
         if (!$this->isGranted('PUBLIC_ACCESS')) {
             return $this->json([
@@ -22,7 +23,7 @@ class SecurityController extends AbstractController
         }
 
         return $this->json([
-            'user'  => $user->getUserIdentifier(),
+            'user' => $user->getUserIdentifier(),
             'tokens' => $this->getUser()->getApiTokens()
         ], Response::HTTP_OK);
     }

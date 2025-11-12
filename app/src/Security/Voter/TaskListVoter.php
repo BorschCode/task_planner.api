@@ -8,10 +8,14 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * @extends Voter<string, Task>
+ */
 class TaskListVoter extends Voter
 {
     public const EDIT = 'EDIT';
     public const VIEW = 'VIEW';
+
     public function __construct(private readonly AuthorizationCheckerInterface $security)
     {
     }
@@ -33,7 +37,7 @@ class TaskListVoter extends Voter
 
         /** @var Task $subject */
 
-        if ($attribute == 'EDIT') {
+        if ($attribute == self::EDIT) {
             if ($subject->getOwner() === $user) {
                 return true;
             }

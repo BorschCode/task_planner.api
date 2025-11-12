@@ -11,21 +11,21 @@ use Zenstruck\Foundry\RepositoryProxy;
 /**
  * @extends ModelFactory<ApiToken>
  *
- * @method        ApiToken|Proxy                     create(array|callable $attributes = [])
- * @method static ApiToken|Proxy                     createOne(array $attributes = [])
- * @method static ApiToken|Proxy                     find(object|array|mixed $criteria)
- * @method static ApiToken|Proxy                     findOrCreate(array $attributes)
- * @method static ApiToken|Proxy                     first(string $sortedField = 'id')
- * @method static ApiToken|Proxy                     last(string $sortedField = 'id')
- * @method static ApiToken|Proxy                     random(array $attributes = [])
- * @method static ApiToken|Proxy                     randomOrCreate(array $attributes = [])
- * @method static ApiTokenRepository|RepositoryProxy repository()
- * @method static ApiToken[]|Proxy[]                 all()
- * @method static ApiToken[]|Proxy[]                 createMany(int $number, array|callable $attributes = [])
- * @method static ApiToken[]|Proxy[]                 createSequence(iterable|callable $sequence)
- * @method static ApiToken[]|Proxy[]                 findBy(array $attributes)
- * @method static ApiToken[]|Proxy[]                 randomRange(int $min, int $max, array $attributes = [])
- * @method static ApiToken[]|Proxy[]                 randomSet(int $number, array $attributes = [])
+ * @method        ApiToken|Proxy<ApiToken>                     create(array<string, mixed>|callable $attributes = [])
+ * @method static ApiToken|Proxy<ApiToken>                     createOne(array<string, mixed> $attributes = [])
+ * @method static ApiToken|Proxy<ApiToken>                     find(object|array<string, mixed>|mixed $criteria)
+ * @method static ApiToken|Proxy<ApiToken>                     findOrCreate(array<string, mixed> $attributes)
+ * @method static ApiToken|Proxy<ApiToken>                     first(string $sortedField = 'id')
+ * @method static ApiToken|Proxy<ApiToken>                     last(string $sortedField = 'id')
+ * @method static ApiToken|Proxy<ApiToken>                     random(array<string, mixed> $attributes = [])
+ * @method static ApiToken|Proxy<ApiToken>                     randomOrCreate(array<string, mixed> $attributes = [])
+ * @method static ApiTokenRepository|RepositoryProxy<ApiToken> repository()
+ * @method static ApiToken[]|Proxy<ApiToken>[]                 all()
+ * @method static ApiToken[]|Proxy<ApiToken>[]                 createMany(int $number, array<string, mixed>|callable $attributes = [])
+ * @method static ApiToken[]|Proxy<ApiToken>[]                 createSequence(iterable<int, array<string, mixed>>|callable $sequence)
+ * @method static ApiToken[]|Proxy<ApiToken>[]                 findBy(array<string, mixed> $attributes)
+ * @method static ApiToken[]|Proxy<ApiToken>[]                 randomRange(int $min, int $max, array<string, mixed> $attributes = [])
+ * @method static ApiToken[]|Proxy<ApiToken>[]                 randomSet(int $number, array<string, mixed> $attributes = [])
  */
 final class ApiTokenFactory extends ModelFactory
 {
@@ -58,7 +58,7 @@ final class ApiTokenFactory extends ModelFactory
     {
         return $this
             // ->afterInstantiate(function(ApiToken $apiToken): void {})
-        ;
+            ;
     }
 
     protected static function getClass(): string

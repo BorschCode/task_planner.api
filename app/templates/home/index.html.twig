@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todo List API{% endblock %}
+
+{% block body %}
+    <div style="max-width: 800px; margin: 50px auto; padding: 20px; font-family: Arial, sans-serif;">
+        <h1>Todo List API</h1>
+
+        <h2>Description</h2>
+        <p>The API provides the following capabilities:</p>
+        <ul>
+            <li>Get a list of your tasks according to filters</li>
+            <li>Create your task</li>
+            <li>Edit your task</li>
+            <li>Delete your task</li>
+            <li>Mark your task as completed</li>
+        </ul>
+
+        <div style="margin-top: 30px;">
+            <a href="{{ path('api_doc') }}"
+               style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                View API Documentation
+            </a> <a href="{{ path('api_login_form') }}"
+                    style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                Login
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -11,21 +11,21 @@ use Zenstruck\Foundry\RepositoryProxy;
 /**
  * @extends ModelFactory<Task>
  *
- * @method        Task|Proxy                     create(array|callable $attributes = [])
- * @method static Task|Proxy                     createOne(array $attributes = [])
- * @method static Task|Proxy                     find(object|array|mixed $criteria)
- * @method static Task|Proxy                     findOrCreate(array $attributes)
- * @method static Task|Proxy                     first(string $sortedField = 'id')
- * @method static Task|Proxy                     last(string $sortedField = 'id')
- * @method static Task|Proxy                     random(array $attributes = [])
- * @method static Task|Proxy                     randomOrCreate(array $attributes = [])
- * @method static TaskRepository|RepositoryProxy repository()
- * @method static Task[]|Proxy[]                 all()
- * @method static Task[]|Proxy[]                 createMany(int $number, array|callable $attributes = [])
- * @method static Task[]|Proxy[]                 createSequence(iterable|callable $sequence)
- * @method static Task[]|Proxy[]                 findBy(array $attributes)
- * @method static Task[]|Proxy[]                 randomRange(int $min, int $max, array $attributes = [])
- * @method static Task[]|Proxy[]                 randomSet(int $number, array $attributes = [])
+ * @method        Task|Proxy<Task>                     create(array<string, mixed>|callable $attributes = [])
+ * @method static Task|Proxy<Task>                     createOne(array<string, mixed> $attributes = [])
+ * @method static Task|Proxy<Task>                     find(object|array|mixed $criteria)
+ * @method static Task|Proxy<Task>                     findOrCreate(array<string, mixed> $attributes)
+ * @method static Task|Proxy<Task>                     first(string $sortedField = 'id')
+ * @method static Task|Proxy<Task>                     last(string $sortedField = 'id')
+ * @method static Task|Proxy<Task>                     random(array<string, mixed> $attributes = [])
+ * @method static Task|Proxy<Task>                     randomOrCreate(array<string, mixed> $attributes = [])
+ * @method static TaskRepository|RepositoryProxy<Task> repository()
+ * @method static Task[]|Proxy<Task>[]                 all()
+ * @method static Task[]|Proxy<Task>[]                 createMany(int $number, array<string, mixed>|callable $attributes = [])
+ * @method static Task[]|Proxy<Task>[]                 createSequence(iterable<array<string, mixed>|callable>|callable $sequence)
+ * @method static Task[]|Proxy<Task>[]                 findBy(array<string, mixed> $attributes)
+ * @method static Task[]|Proxy<Task>[]                 randomRange(int $min, int $max, array<string, mixed> $attributes = [])
+ * @method static Task[]|Proxy<Task>[]                 randomSet(int $number, array<string, mixed> $attributes = [])
  */
 final class TaskFactory extends ModelFactory
 {
@@ -63,7 +63,7 @@ final class TaskFactory extends ModelFactory
     {
         return $this
             // ->afterInstantiate(function(Task $task): void {})
-        ;
+            ;
     }
 
     protected static function getClass(): string

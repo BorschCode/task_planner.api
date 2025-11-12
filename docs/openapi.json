@@ -1,0 +1,2734 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "0.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/api/tasks": {
+      "get": {
+        "operationId": "api_tasks_get_collection",
+        "tags": [
+          "task"
+        ],
+        "responses": {
+          "200": {
+            "description": "task collection",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hydra:member": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/task.jsonld-task.read"
+                      }
+                    },
+                    "hydra:totalItems": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "hydra:view": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "@type": {
+                          "type": "string"
+                        },
+                        "hydra:first": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:last": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:previous": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:next": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        }
+                      },
+                      "example": {
+                        "@id": "string",
+                        "type": "string",
+                        "hydra:first": "string",
+                        "hydra:last": "string",
+                        "hydra:previous": "string",
+                        "hydra:next": "string"
+                      }
+                    },
+                    "hydra:search": {
+                      "type": "object",
+                      "properties": {
+                        "@type": {
+                          "type": "string"
+                        },
+                        "hydra:template": {
+                          "type": "string"
+                        },
+                        "hydra:variableRepresentation": {
+                          "type": "string"
+                        },
+                        "hydra:mapping": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "@type": {
+                                "type": "string"
+                              },
+                              "variable": {
+                                "type": "string"
+                              },
+                              "property": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "required": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "hydra:member"
+                  ]
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/task-task.read"
+                  }
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/task-task.read"
+                  }
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_embedded": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/task.jsonhal-task.read"
+                      }
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "itemsPerPage": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "_links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "first": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "last": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "previous": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "_links",
+                    "_embedded"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Retrieves the collection of task resources.",
+        "description": "Retrieves the collection of task resources.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The collection page number",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "createdAt[before]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "createdAt[strictly_before]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "createdAt[after]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "createdAt[strictly_after]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "completedAt[before]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "completedAt[strictly_before]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "completedAt[after]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "completedAt[strictly_after]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "updatedAt[before]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "updatedAt[strictly_before]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "updatedAt[after]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "updatedAt[strictly_after]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "status[between]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "status[gt]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "status[gte]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "status[lt]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "status[lte]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "priority[between]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "priority[gt]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "priority[gte]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "priority[lt]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "priority[lte]",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      },
+      "post": {
+        "operationId": "api_tasks_post",
+        "tags": [
+          "task"
+        ],
+        "responses": {
+          "201": {
+            "description": "task resource created",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task.jsonld-task.read"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task-task.read"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/task-task.read"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task.jsonhal-task.read"
+                }
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        },
+        "summary": "Creates a task resource.",
+        "description": "Creates a task resource.",
+        "parameters": [],
+        "requestBody": {
+          "description": "The new task resource",
+          "content": {
+            "application/ld+json": {
+              "schema": {
+                "$ref": "#/components/schemas/task.jsonld-task.write"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/task-task.write"
+              }
+            },
+            "text/html": {
+              "schema": {
+                "$ref": "#/components/schemas/task-task.write"
+              }
+            },
+            "application/hal+json": {
+              "schema": {
+                "$ref": "#/components/schemas/task.jsonhal-task.write"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    },
+    "/api/tasks/{id}": {
+      "get": {
+        "operationId": "api_tasks_id_get",
+        "tags": [
+          "task"
+        ],
+        "responses": {
+          "200": {
+            "description": "task resource",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task.jsonld-task.read"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task-task.read"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/task-task.read"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task.jsonhal-task.read"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "summary": "Retrieves a task resource.",
+        "description": "Retrieves a task resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "operationId": "api_tasks_id_put",
+        "tags": [
+          "task"
+        ],
+        "responses": {
+          "200": {
+            "description": "task resource updated",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task.jsonld-task.read"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task-task.read"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/task-task.read"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/task.jsonhal-task.read"
+                }
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "summary": "Replaces the task resource.",
+        "description": "Replaces the task resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "requestBody": {
+          "description": "The updated task resource",
+          "content": {
+            "application/ld+json": {
+              "schema": {
+                "$ref": "#/components/schemas/task.jsonld-task.write"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/task-task.write"
+              }
+            },
+            "text/html": {
+              "schema": {
+                "$ref": "#/components/schemas/task-task.write"
+              }
+            },
+            "application/hal+json": {
+              "schema": {
+                "$ref": "#/components/schemas/task.jsonhal-task.write"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "operationId": "api_tasks_id_delete",
+        "tags": [
+          "task"
+        ],
+        "responses": {
+          "204": {
+            "description": "task resource deleted"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "summary": "Removes the task resource.",
+        "description": "Removes the task resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      },
+      "parameters": []
+    },
+    "/api/users": {
+      "get": {
+        "operationId": "api_users_get_collection",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User collection",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hydra:member": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User.jsonld-user.read"
+                      }
+                    },
+                    "hydra:totalItems": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "hydra:view": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "@type": {
+                          "type": "string"
+                        },
+                        "hydra:first": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:last": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:previous": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:next": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        }
+                      },
+                      "example": {
+                        "@id": "string",
+                        "type": "string",
+                        "hydra:first": "string",
+                        "hydra:last": "string",
+                        "hydra:previous": "string",
+                        "hydra:next": "string"
+                      }
+                    },
+                    "hydra:search": {
+                      "type": "object",
+                      "properties": {
+                        "@type": {
+                          "type": "string"
+                        },
+                        "hydra:template": {
+                          "type": "string"
+                        },
+                        "hydra:variableRepresentation": {
+                          "type": "string"
+                        },
+                        "hydra:mapping": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "@type": {
+                                "type": "string"
+                              },
+                              "variable": {
+                                "type": "string"
+                              },
+                              "property": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "required": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "hydra:member"
+                  ]
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User-user.read"
+                  }
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User-user.read"
+                  }
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_embedded": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User.jsonhal-user.read"
+                      }
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "itemsPerPage": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "_links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "first": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "last": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "previous": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "_links",
+                    "_embedded"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Retrieves the collection of User resources.",
+        "description": "Retrieves the collection of User resources.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The collection page number",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      },
+      "post": {
+        "operationId": "api_users_post",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "201": {
+            "description": "User resource created",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonld-user.read"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonhal-user.read"
+                }
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        },
+        "summary": "Creates a User resource.",
+        "description": "Creates a User resource.",
+        "parameters": [],
+        "requestBody": {
+          "description": "The new User resource",
+          "content": {
+            "application/ld+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User.jsonld-user.write"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User-user.write"
+              }
+            },
+            "text/html": {
+              "schema": {
+                "$ref": "#/components/schemas/User-user.write"
+              }
+            },
+            "application/hal+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User.jsonhal-user.write"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    },
+    "/api/users/{id}": {
+      "get": {
+        "operationId": "api_users_id_get",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User resource",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonld-user.read"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonhal-user.read"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "summary": "Retrieves a User resource.",
+        "description": "Retrieves a User resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "operationId": "api_users_id_put",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User resource updated",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonld-user.read"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonhal-user.read"
+                }
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "summary": "Replaces the User resource.",
+        "description": "Replaces the User resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "requestBody": {
+          "description": "The updated User resource",
+          "content": {
+            "application/ld+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User.jsonld-user.write"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User-user.write"
+              }
+            },
+            "text/html": {
+              "schema": {
+                "$ref": "#/components/schemas/User-user.write"
+              }
+            },
+            "application/hal+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User.jsonhal-user.write"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "operationId": "api_users_id_delete",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "204": {
+            "description": "User resource deleted"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "summary": "Removes the User resource.",
+        "description": "Removes the User resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      },
+      "patch": {
+        "operationId": "api_users_id_patch",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User resource updated",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonld-user.read"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/User-user.read"
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User.jsonhal-user.read"
+                }
+              }
+            },
+            "links": {}
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          },
+          "404": {
+            "description": "Resource not found"
+          }
+        },
+        "summary": "Updates the User resource.",
+        "description": "Updates the User resource.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "requestBody": {
+          "description": "The updated User resource",
+          "content": {
+            "application/merge-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/User-user.write"
+              }
+            }
+          },
+          "required": true
+        },
+        "deprecated": false
+      },
+      "parameters": []
+    },
+    "/api/users/{id}/tasks": {
+      "get": {
+        "operationId": "api_users_idtasks_get_collection",
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "User collection",
+            "content": {
+              "application/ld+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "hydra:member": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User.jsonld"
+                      }
+                    },
+                    "hydra:totalItems": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "hydra:view": {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "@type": {
+                          "type": "string"
+                        },
+                        "hydra:first": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:last": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:previous": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        },
+                        "hydra:next": {
+                          "type": "string",
+                          "format": "iri-reference"
+                        }
+                      },
+                      "example": {
+                        "@id": "string",
+                        "type": "string",
+                        "hydra:first": "string",
+                        "hydra:last": "string",
+                        "hydra:previous": "string",
+                        "hydra:next": "string"
+                      }
+                    },
+                    "hydra:search": {
+                      "type": "object",
+                      "properties": {
+                        "@type": {
+                          "type": "string"
+                        },
+                        "hydra:template": {
+                          "type": "string"
+                        },
+                        "hydra:variableRepresentation": {
+                          "type": "string"
+                        },
+                        "hydra:mapping": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "@type": {
+                                "type": "string"
+                              },
+                              "variable": {
+                                "type": "string"
+                              },
+                              "property": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "required": {
+                                "type": "boolean"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "hydra:member"
+                  ]
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "text/html": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              },
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_embedded": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User.jsonhal"
+                      }
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "itemsPerPage": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "_links": {
+                      "type": "object",
+                      "properties": {
+                        "self": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "first": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "last": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        },
+                        "previous": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri-reference"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "_links",
+                    "_embedded"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "summary": "Retrieves the collection of User resources.",
+        "description": "Retrieves the collection of User resources.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Task identifier",
+            "required": true,
+            "deprecated": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "simple",
+            "explode": false,
+            "allowReserved": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The collection page number",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "style": "form",
+            "explode": false,
+            "allowReserved": false
+          }
+        ],
+        "deprecated": false
+      },
+      "parameters": []
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiToken": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "ownedBy": {
+            "type": "string",
+            "format": "iri-reference"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "token": {
+            "type": "string"
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "valid": {
+            "readOnly": true,
+            "type": "boolean"
+          }
+        }
+      },
+      "ApiToken.jsonhal": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "ownedBy": {
+            "type": "string",
+            "format": "iri-reference"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "token": {
+            "type": "string"
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "valid": {
+            "readOnly": true,
+            "type": "boolean"
+          }
+        }
+      },
+      "ApiToken.jsonld": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "@context": {
+            "readOnly": true,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@vocab": {
+                    "type": "string"
+                  },
+                  "hydra": {
+                    "type": "string",
+                    "enum": [
+                      "http://www.w3.org/ns/hydra/core#"
+                    ]
+                  }
+                },
+                "required": [
+                  "@vocab",
+                  "hydra"
+                ],
+                "additionalProperties": true
+              }
+            ]
+          },
+          "@id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "@type": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "ownedBy": {
+            "type": "string",
+            "format": "iri-reference"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "token": {
+            "type": "string"
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "valid": {
+            "readOnly": true,
+            "type": "boolean"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "password": {
+            "description": "The hashed password",
+            "type": "string"
+          },
+          "apiTokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToken"
+            }
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri-reference"
+            }
+          },
+          "userIdentifier": {
+            "readOnly": true,
+            "description": "A visual identifier that represents this user.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "User-task.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          }
+        }
+      },
+      "User-user.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/task-user.read"
+            }
+          }
+        }
+      },
+      "User-user.write": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "password": {
+            "description": "The hashed password",
+            "type": "string"
+          }
+        }
+      },
+      "User.jsonhal": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "password": {
+            "description": "The hashed password",
+            "type": "string"
+          },
+          "apiTokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToken.jsonhal"
+            }
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri-reference"
+            }
+          },
+          "userIdentifier": {
+            "readOnly": true,
+            "description": "A visual identifier that represents this user.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "User.jsonhal-task.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          }
+        }
+      },
+      "User.jsonhal-user.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/task.jsonhal-user.read"
+            }
+          }
+        }
+      },
+      "User.jsonhal-user.write": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "password": {
+            "description": "The hashed password",
+            "type": "string"
+          }
+        }
+      },
+      "User.jsonld": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "properties": {
+          "@id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "@type": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "id": {
+            "readOnly": true,
+            "type": "integer"
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "password": {
+            "description": "The hashed password",
+            "type": "string"
+          },
+          "apiTokens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiToken.jsonld"
+            }
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri-reference"
+            }
+          },
+          "userIdentifier": {
+            "readOnly": true,
+            "description": "A visual identifier that represents this user.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "User.jsonld-task.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "@context": {
+            "readOnly": true,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@vocab": {
+                    "type": "string"
+                  },
+                  "hydra": {
+                    "type": "string",
+                    "enum": [
+                      "http://www.w3.org/ns/hydra/core#"
+                    ]
+                  }
+                },
+                "required": [
+                  "@vocab",
+                  "hydra"
+                ],
+                "additionalProperties": true
+              }
+            ]
+          },
+          "@id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "@type": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          }
+        }
+      },
+      "User.jsonld-user.read": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "@context": {
+            "readOnly": true,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@vocab": {
+                    "type": "string"
+                  },
+                  "hydra": {
+                    "type": "string",
+                    "enum": [
+                      "http://www.w3.org/ns/hydra/core#"
+                    ]
+                  }
+                },
+                "required": [
+                  "@vocab",
+                  "hydra"
+                ],
+                "additionalProperties": true
+              }
+            ]
+          },
+          "@id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "@type": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/task.jsonld-user.read"
+            }
+          }
+        }
+      },
+      "User.jsonld-user.write": {
+        "type": "object",
+        "description": "",
+        "deprecated": false,
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "format": "email",
+            "externalDocs": {
+              "url": "https://schema.org/email"
+            },
+            "type": "string"
+          },
+          "password": {
+            "description": "The hashed password",
+            "type": "string"
+          }
+        }
+      },
+      "task-task.read": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "createdAt",
+          "priority",
+          "owner"
+        ],
+        "properties": {
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "maximum": 1000,
+            "exclusiveMaximum": true,
+            "type": "integer"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User-task.read"
+          }
+        }
+      },
+      "task-task.write": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "createdAt",
+          "priority",
+          "owner"
+        ],
+        "properties": {
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "maximum": 1000,
+            "exclusiveMaximum": true,
+            "type": "integer"
+          },
+          "owner": {
+            "type": "string",
+            "format": "iri-reference"
+          }
+        }
+      },
+      "task-user.read": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "owner"
+        ],
+        "properties": {
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User-user.read"
+          }
+        }
+      },
+      "task.jsonhal-task.read": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "createdAt",
+          "priority",
+          "owner"
+        ],
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "maximum": 1000,
+            "exclusiveMaximum": true,
+            "type": "integer"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User.jsonhal-task.read"
+          }
+        }
+      },
+      "task.jsonhal-task.write": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "createdAt",
+          "priority",
+          "owner"
+        ],
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "maximum": 1000,
+            "exclusiveMaximum": true,
+            "type": "integer"
+          },
+          "owner": {
+            "type": "string",
+            "format": "iri-reference"
+          }
+        }
+      },
+      "task.jsonhal-user.read": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "owner"
+        ],
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "self": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "format": "iri-reference"
+                  }
+                }
+              }
+            }
+          },
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User.jsonhal-user.read"
+          }
+        }
+      },
+      "task.jsonld-task.read": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "createdAt",
+          "priority",
+          "owner"
+        ],
+        "properties": {
+          "@context": {
+            "readOnly": true,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@vocab": {
+                    "type": "string"
+                  },
+                  "hydra": {
+                    "type": "string",
+                    "enum": [
+                      "http://www.w3.org/ns/hydra/core#"
+                    ]
+                  }
+                },
+                "required": [
+                  "@vocab",
+                  "hydra"
+                ],
+                "additionalProperties": true
+              }
+            ]
+          },
+          "@id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "@type": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "maximum": 1000,
+            "exclusiveMaximum": true,
+            "type": "integer"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User.jsonld-task.read"
+          }
+        }
+      },
+      "task.jsonld-task.write": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "createdAt",
+          "priority",
+          "owner"
+        ],
+        "properties": {
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "priority": {
+            "maximum": 1000,
+            "exclusiveMaximum": true,
+            "type": "integer"
+          },
+          "owner": {
+            "type": "string",
+            "format": "iri-reference"
+          }
+        }
+      },
+      "task.jsonld-user.read": {
+        "type": "object",
+        "description": "Todo task related to user.\n\u0411\u0443\u0434\u044c-\u044f\u043a\u0435 \u0437\u0430\u0434\u0430\u0447\u0430 \u043c\u043e\u0436\u0435 \u043c\u0430\u0442\u0438 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447\u0456  \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043a\u043b\u0430\u0434\u0435\u043d\u043e\u0441\u0442\u0456 \u043f\u0456\u0434\u0437\u0430\u0434\u0430\u0447 \u043c\u0430\u0454 \u0431\u0443\u0442\u0438 \u043d\u0435\u043e\u0431\u043c\u0435\u0436\u0435\u043d\u0438\u0439.",
+        "deprecated": false,
+        "required": [
+          "status",
+          "title",
+          "owner"
+        ],
+        "properties": {
+          "@context": {
+            "readOnly": true,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@vocab": {
+                    "type": "string"
+                  },
+                  "hydra": {
+                    "type": "string",
+                    "enum": [
+                      "http://www.w3.org/ns/hydra/core#"
+                    ]
+                  }
+                },
+                "required": [
+                  "@vocab",
+                  "hydra"
+                ],
+                "additionalProperties": true
+              }
+            ]
+          },
+          "@id": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "@type": {
+            "readOnly": true,
+            "type": "string"
+          },
+          "status": {
+            "minLength": 1,
+            "maxLength": 100,
+            "type": "string"
+          },
+          "title": {
+            "minLength": 1,
+            "maxLength": 255,
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "owner": {
+            "$ref": "#/components/schemas/User.jsonld-user.read"
+          }
+        }
+      }
+    },
+    "responses": {},
+    "parameters": {},
+    "examples": {},
+    "requestBodies": {},
+    "headers": {},
+    "securitySchemes": {
+      "access_token": {
+        "type": "apiKey",
+        "description": "Value for the Authorization header parameter.",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "access_token": []
+    }
+  ],
+  "tags": []
+}

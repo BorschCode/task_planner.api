@@ -8,6 +8,11 @@ API надає можливість:
 - Видалити своє завдання.
 - Відзначити своє завдання як виконане.
 
+![api docs](docs/index-img.png)
+
+
+
+![api docs](docs/login-img.png)
 
 
 ## How to run

@@ -13,12 +13,17 @@ class TaskRemoveProcessor implements ProcessorInterface
 {
     public function __construct(
         private readonly DoctrineRemoveProcessor $doctrineProcessor,
-        private readonly ValidatorInterface      $validator,
-    )
-    {
+        private readonly ValidatorInterface $validator,
+    ) {
     }
 
-    public function process($data, Operation $operation, array $uriVariables = [], array $context = []): void
+    /**
+     * @param mixed $data
+     * @param Operation $operation
+     * @param array<string, mixed> $uriVariables
+     * @param array<string, mixed> $context
+     */
+    public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void
     {
         /** @var $data Task */
         $this->validator->validate($data, ['groups' => ['deleteValidation']]);
@@ -27,7 +32,6 @@ class TaskRemoveProcessor implements ProcessorInterface
         }
         if ($data->getChildren()->count()) {
             throw new ValidationException('Cannot delete Task as it has children tasks.');
-
         }
         $this->doctrineProcessor->process($data, $operation, $uriVariables, $context);
     }

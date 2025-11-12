@@ -11,21 +11,21 @@ use Zenstruck\Foundry\RepositoryProxy;
 /**
  * @extends ModelFactory<User>
  *
- * @method        User|Proxy                     create(array|callable $attributes = [])
- * @method static User|Proxy                     createOne(array $attributes = [])
- * @method static User|Proxy                     find(object|array|mixed $criteria)
- * @method static User|Proxy                     findOrCreate(array $attributes)
- * @method static User|Proxy                     first(string $sortedField = 'id')
- * @method static User|Proxy                     last(string $sortedField = 'id')
- * @method static User|Proxy                     random(array $attributes = [])
- * @method static User|Proxy                     randomOrCreate(array $attributes = [])
- * @method static UserRepository|RepositoryProxy repository()
- * @method static User[]|Proxy[]                 all()
- * @method static User[]|Proxy[]                 createMany(int $number, array|callable $attributes = [])
- * @method static User[]|Proxy[]                 createSequence(iterable|callable $sequence)
- * @method static User[]|Proxy[]                 findBy(array $attributes)
- * @method static User[]|Proxy[]                 randomRange(int $min, int $max, array $attributes = [])
- * @method static User[]|Proxy[]                 randomSet(int $number, array $attributes = [])
+ * @method        User|Proxy<User>                     create(array<string, mixed>|callable $attributes = [])
+ * @method static User|Proxy<User>                     createOne(array<string, mixed> $attributes = [])
+ * @method static User|Proxy<User>                     find(object|array|mixed $criteria)
+ * @method static User|Proxy<User>                     findOrCreate(array<string, mixed> $attributes)
+ * @method static User|Proxy<User>                     first(string $sortedField = 'id')
+ * @method static User|Proxy<User>                     last(string $sortedField = 'id')
+ * @method static User|Proxy<User>                     random(array<string, mixed> $attributes = [])
+ * @method static User|Proxy<User>                     randomOrCreate(array<string, mixed> $attributes = [])
+ * @method static UserRepository|RepositoryProxy<User> repository()
+ * @method static User[]|Proxy<User>[]                 all()
+ * @method static User[]|Proxy<User>[]                 createMany(int $number, array<string, mixed>|callable $attributes = [])
+ * @method static User[]|Proxy<User>[]                 createSequence(iterable<array<string, mixed>|callable(): array<string, mixed>> $sequence)
+ * @method static User[]|Proxy<User>[]                 findBy(array<string, mixed> $attributes)
+ * @method static User[]|Proxy<User>[]                 randomRange(int $min, int $max, array<string, mixed> $attributes = [])
+ * @method static User[]|Proxy<User>[]                 randomSet(int $number, array<string, mixed> $attributes = [])
  */
 final class UserFactory extends ModelFactory
 {
@@ -60,7 +60,7 @@ final class UserFactory extends ModelFactory
     {
         return $this
             // ->afterInstantiate(function(User $user): void {})
-        ;
+            ;
     }
 
     protected static function getClass(): string

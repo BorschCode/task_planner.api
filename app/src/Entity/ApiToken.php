@@ -45,7 +45,7 @@ class ApiToken
      */
     public function __construct(string $tokenType = self::PERSONAL_ACCESS__TOKEN)
     {
-        $this->token = $tokenType.bin2hex(random_bytes(32));
+        $this->token = $tokenType . bin2hex(random_bytes(32));
     }
 
     public function getId(): ?int

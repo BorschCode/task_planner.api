@@ -12,9 +12,9 @@ use Doctrine\Persistence\ManagerRegistry;
  * @extends ServiceEntityRepository<ApiToken>
  *
  * @method ApiToken|null find($id, $lockMode = null, $lockVersion = null)
- * @method ApiToken|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ApiToken|null findOneBy(array<string, mixed> $criteria, array<string, string> $orderBy = null)
  * @method ApiToken[]    findAll()
- * @method ApiToken[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ApiToken[]    findBy(array<string, mixed> $criteria, array<string, string> $orderBy = null, $limit = null, $offset = null)
  */
 class ApiTokenRepository extends ServiceEntityRepository
 {
@@ -22,5 +22,4 @@ class ApiTokenRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ApiToken::class);
     }
-
 }
