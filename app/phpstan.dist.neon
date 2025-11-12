@@ -5,3 +5,7 @@ parameters:
         - config/
         - public/
         - src/
+#    doctrine:
+#        objectManagerLoader: tests/object-manager.php
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon

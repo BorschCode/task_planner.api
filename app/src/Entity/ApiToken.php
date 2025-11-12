@@ -36,6 +36,9 @@ class ApiToken
     #[ORM\Column(length: 68)]
     private ?string $token = null;
 
+    /**
+     * @var list<string>
+     */
     #[ORM\Column]
     private array $scopes = [];
 
@@ -89,11 +92,17 @@ class ApiToken
         return $this;
     }
 
+    /**
+     * @return list<string>
+     */
     public function getScopes(): array
     {
         return $this->scopes;
     }
 
+    /**
+     * @param list<string> $scopes
+     */
     public function setScopes(array $scopes): static
     {
         $this->scopes = $scopes;

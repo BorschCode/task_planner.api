@@ -41,8 +41,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email()]
     private ?string $email = null;
 
+    /**
+     * @var list<string>
+     */
     #[ORM\Column]
-    /** @var array<string> */
     private array $roles = [];
 
     /**
@@ -53,17 +55,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'ownedBy', targetEntity: ApiToken::class)]
     /**
      * @var Collection<int, ApiToken>
      */
+    #[ORM\OneToMany(mappedBy: 'ownedBy', targetEntity: ApiToken::class)]
     private Collection $apiTokens;
 
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Task::class, orphanRemoval: true)]
-    #[Groups(['user:read'])]
     /**
      * @var Collection<int, Task>
      */
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Task::class, orphanRemoval: true)]
+    #[Groups(['user:read'])]
     private Collection $tasks;
 
     public function __construct()
@@ -102,7 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      *
-     * @return array<string>
+     * @return list<string>
      */
     public function getRoles(): array
     {
@@ -114,7 +116,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param array<string> $roles
+     * @param list<string> $roles
      */
     public function setRoles(array $roles): static
     {

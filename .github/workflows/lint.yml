@@ -15,6 +15,10 @@ jobs:
       matrix:
         php-version: [ '8.1', '8.2' ]
 
+    defaults:
+      run:
+        working-directory: app   # 👈 all commands will run from /app
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -35,7 +39,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.composer/cache/files
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('app/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
 
